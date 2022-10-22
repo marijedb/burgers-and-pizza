@@ -23,6 +23,10 @@ header {
     background-size: cover;
 }
 
+ul {
+    padding: 0;
+}
+
 
 /* Typography */
 
@@ -96,8 +100,9 @@ p {
     border-bottom: 1px solid #D2D2D2;
 }
 
-.basket-items-container {
+.basket-items-list-container {
     display: flex;
+    list-style: none;
 }
 
 .total-price-container {
@@ -108,7 +113,6 @@ p {
     margin-top: 15px;
     padding: 15px 10px 15px 0;
 }
-
 
 /* Menu images */
 
