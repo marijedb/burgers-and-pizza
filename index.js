@@ -6,7 +6,6 @@ import {
 // Add eventListeners for all buttons, using event.target
 // Add menu discounts
 // When complete order, create a popup. (Still need to make and style it)
-// Add remaining menu items in data.js
 
 function getHtml() {
     let pageHtml = ``;
@@ -26,7 +25,7 @@ function getHtml() {
                 <div class="menu-item-info">
                     <h3>${menuItem.name}</h3>
                     <p class="ingredients">${menuItem.ingredients}</p>
-                    <p class="price">${menuItem.price}</p>
+                    <p class="price">$${menuItem.price}</p>
                 </div>
             <button class="menu-button">+</button>
         </div>`
@@ -39,7 +38,7 @@ function getHtml() {
                 <div class="menu-item-info">
                     <h3>${menuItem.name}</h3>
                     <p class="ingredients">${menuItem.ingredients}</p>
-                    <p class="price">${menuItem.price}</p>
+                    <p class="price">$${menuItem.price}</p>
                 </div>
             <button class="menu-button">+</button>
         </div>`
@@ -52,7 +51,7 @@ function getHtml() {
                 <div class="menu-item-info">
                     <h3>${menuItem.name}</h3>
                     <p class="ingredients">${menuItem.ingredients}</p>
-                    <p class="price">${menuItem.price}</p>
+                    <p class="price">$${menuItem.price}</p>
                 </div>
             <button class="menu-button">+</button>
         </div>`
@@ -65,7 +64,7 @@ function getHtml() {
                 <div class="menu-item-info">
                     <h3>${menuItem.name}</h3>
                     <p class="ingredients">${menuItem.ingredients}</p>
-                    <p class="price">${menuItem.price}</p>
+                    <p class="price">$${menuItem.price}</p>
                 </div>
             <button class="menu-button">+</button>
         </div>`
@@ -76,18 +75,29 @@ function getHtml() {
     <div class="content-container">
         <h3 class="menu-item-title">Main dishes</h3>
         ${mainDish}
+        <h3 class="menu-item-title">Side Dishes</h3>
+        ${sideDish}
+        <h3 class="menu-item-title">Desserts</h3>
+        ${dessert}
         <h3 class="menu-item-title">Beverages</h3>
         ${beverage}
     </div>
 
     <div class="order-container">
         <h1 class="order-title">Your Order</h1>
-        <p>Nothing is placed in your basket yet. Please select something from the menu.</p>
-        <hr>
-        <p>Total price:</p>
+        <div class="basket-items-container">
+            <p class="basket-item">Pizza</p>
+            <p class="remove-btn">remove</p>
+            <p class="basket-item-price">$10</p>
+        </div>
+        <div class="total-price-container">
+            <p class="order-price-total">Total price:</p>
+            <p class="order-total-amount">$100</p>
+        </div>
         <button class="order-button">Complete order</button>
     </div>`;
     
+    //Nothing is placed in your basket yet. Please select something from the menu.
 
     return pageHtml;
     // loop over the array and grab all main dishes and put them inside a variable

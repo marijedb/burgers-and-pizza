@@ -47,28 +47,83 @@ export const menuArray = [{
         id: 5
     },
     {
+        name: "Deep fried Shrimps",
+        ingredients: ["Shrimp", " breadcrumb", " flour"],
+        price: 8,
+        emoji: "🍤",
+        categorie: "side dish",
+        id: 6
+    },
+    {
+        name: "Corn on the cob",
+        ingredients: ["Corn", " butter"],
+        price: 4,
+        emoji: "🌽",
+        categorie: "side dish",
+        id: 7
+    },
+    {
+        name: "Salade",
+        ingredients: ["Lettuce", " tomato", " red onion", " dressing"],
+        price: 4,
+        emoji: "🥗",
+        categorie: "side dish",
+        id: 8
+    },
+    {
+        name: "Home made Apple pie",
+        ingredients: ["Apples", " eggs", " sugar", " flour", " butter"],
+        price: 4,
+        emoji: "🥧",
+        categorie: "dessert",
+        id: 9
+    },
+    {
+        name: "Chocolate cupcake",
+        ingredients: ["Eggs", " flour", " butter", " sugar", " buttercream"],
+        price: 4,
+        emoji: "🧁",
+        categorie: "dessert",
+        id: 10
+    },
+    {
+        name: "Chocolate chip cookie",
+        ingredients: ["Eggs", " flour", " butter", " sugar", " chocolate chips"],
+        price: 2,
+        emoji: "🍪",
+        categorie: "dessert",
+        id: 11
+    },
+    {
+        name: "Chocolate Donut",
+        ingredients: ["Donut batter", " chocolate", " sprinkles"],
+        price: 2,
+        emoji: "🍩",
+        categorie: "dessert",
+        id: 12
+    },
+    {
         name: "Beer",
         ingredients: ["grain", " hops", " yeast", " water"],
-        price: 12,
+        price: 9,
         emoji: "🍺",
         categorie: "beverage",
-        id: 6
-    }
+        id: 13
+    },
+    {
+        name: "Wine",
+        ingredients: ["grapes"],
+        price: 9,
+        emoji: "🍷",
+        categorie: "beverage",
+        id: 14
+    },
+    {
+        name: "Strawberry Milkshake",
+        ingredients: ["Strawberry", " milk"],
+        price: 3,
+        emoji: "🥤",
+        categorie: "beverage",
+        id: 15
+    },
 ]
-
-
-// Beverages
-// 🍺
-// 🍷
-// 🥤
-
-// Side Dishes
-// 🍤
-// 🌽
-// 🥗
-
-// Desserts
-// 🥧
-// 🧁
-// 🍪
-// 🍩
