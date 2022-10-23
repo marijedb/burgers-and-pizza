@@ -14,17 +14,19 @@ let multipleItems = [];
 document.getElementById("main-page").onload = render();
 document.getElementById("main-page").onload = renderOrderItems();
 
-document.addEventListener("click", function(event){
-    if(event.target.dataset.add){
+document.addEventListener("click", function (event) {
+    if (event.target.dataset.add) {
         addOrderItems(event.target.dataset.add);
-    } else if(event.target.dataset.remove){
+    } else if (event.target.dataset.remove) {
         removeItem(event.target.dataset.remove)
+    } else if (event.target.dataset.complete) {
+        console.log("COMPLETED")
     }
 })
 
-function addOrderItems(itemID){
-    for(let i = 0; i < menuArray.length; i++){
-        if(menuArray[i].id === Number(itemID)){
+function addOrderItems(itemID) {
+    for (let i = 0; i < menuArray.length; i++) {
+        if (menuArray[i].id === Number(itemID)) {
             orderItems.push(menuArray[i])
         }
     }
@@ -34,14 +36,23 @@ function addOrderItems(itemID){
 }
 
 
-function findDuplicates(){
-    multipleItems = orderItems.filter(function(item, index){
-        return orderItems.indexOf(item) !== index;
-    })
+function findDuplicates() {
+    // multipleItems = orderItems.filter(function (item, index) {
+    //     return orderItems.indexOf(item) !== index;
+    // })
+
+    // multipleItems.filter(function (item, index) {
+    //     if (multipleItems.indexOf(item) !== index) {
+    //         // console.log(orderItems[index].name)
+    //     }
+    // })
+
+    
+
 };
 
-function removeItem(itemId){
-    for(let i = 0; i < orderItems.length; i++){
+function removeItem(itemId) {
+    for (let i = 0; i < orderItems.length; i++) {
         if (orderItems[i].id === Number(itemId)) {
             orderItems.splice(i, 1);
         }
@@ -50,12 +61,12 @@ function removeItem(itemId){
     // STILL PROBLEM COS OF DUPLICATES
 }
 
-function calculateTotalPrice(){
-    let totalPrice= 0;
-    if(orderItems.length === 0) {
+function calculateTotalPrice() {
+    let totalPrice = 0;
+    if (orderItems.length === 0) {
         document.getElementById("order-total-amount").textContent = `$0`
     } else {
-        for(let i = 0; i < orderItems.length; i++){
+        for (let i = 0; i < orderItems.length; i++) {
             totalPrice += orderItems[i].price;
         }
         document.getElementById("order-total-amount").textContent = `$${totalPrice}`
@@ -63,15 +74,15 @@ function calculateTotalPrice(){
 }
 
 
-function renderOrderItems(){
+function renderOrderItems() {
     let ul = document.getElementById("ul-items-basket");
-    if(orderItems.length < 1) {
+    if (orderItems.length < 1) {
         document.getElementById("basket-item").textContent = `Select a menu item`;
         document.getElementById("remove-btn").textContent = ``;
         document.getElementById("basket-item-price").textContent = `$0`
     } else {
         ul.textContent = ""
-        for(let i = 0; i < orderItems.length; i++){
+        for (let i = 0; i < orderItems.length; i++) {
             let list = document.createElement("li");
             list.setAttribute("class", "basket-items-list-container")
             list.innerHTML = `
@@ -172,7 +183,7 @@ function getHtml() {
             <p class="order-price-total">Total price:</p>
             <p id="order-total-amount" class="order-total-amount"></p>
         </div>
-        <button class="order-button">Complete order</button>
+        <button class="order-button" data-complete="complete">Complete order</button>
     </div>`;
 
     return pageHtml;

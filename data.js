@@ -4,7 +4,8 @@ export const menuArray = [{
         price: 14,
         emoji: "🍕",
         categorie: "main dish",
-        id: 0
+        id: 0,
+        counter: 0
     },
     {
         name: "Hamburger",
