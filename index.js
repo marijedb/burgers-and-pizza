@@ -9,7 +9,7 @@ import {
 // When complete order, create a popup. (Still need to make and style it)
 let pageHtml = ``;
 let orderItems = [];
-let multipleItems = [];
+let flattenedNames= []
 
 document.getElementById("main-page").onload = render();
 document.getElementById("main-page").onload = renderOrderItems();
@@ -30,26 +30,47 @@ function addOrderItems(itemID) {
             orderItems.push(menuArray[i])
         }
     }
-    findDuplicates()
-    // console.log(multipleItems)
+    sortByName()
+    createCountArray()
     renderOrderItems();
 }
 
 
-function findDuplicates() {
-    // multipleItems = orderItems.filter(function (item, index) {
-    //     return orderItems.indexOf(item) !== index;
-    // })
+function sortByName() {
+    const names = []
 
-    // multipleItems.filter(function (item, index) {
-    //     if (multipleItems.indexOf(item) !== index) {
-    //         // console.log(orderItems[index].name)
-    //     }
-    // })
-
-    
-
+    for (let item of orderItems) {
+        names.push([item.name])
+    }
+    flattenedNames = names.reduce((acc, curVal) => {
+        return acc.concat(curVal)
+    }, []);
+    flattenedNames.sort()
+ 
 };
+
+function createCountArray() {
+    let duplicates = []
+    let current = null;
+    let cnt = 0;
+    for (let j = 0; j < flattenedNames.length; j++) {
+        if (flattenedNames[j] != current) {
+            if (cnt > 0) {
+                duplicates.push([current, cnt])
+            }
+            current = flattenedNames[j];
+            cnt = 1;
+        } else {
+            console.log("else")
+            cnt++;
+        }
+    }
+    if (cnt > 0) {
+        duplicates.push([current, cnt])
+    }
+    console.log(duplicates)
+    console.log(duplicates[0][1])
+}
 
 function removeItem(itemId) {
     for (let i = 0; i < orderItems.length; i++) {
@@ -192,3 +213,66 @@ function getHtml() {
 function render() {
     document.getElementById("main-page").innerHTML = getHtml();
 }
+
+const counterItems = [];
+
+orderItems.forEach(element => {
+    // counterItems[element.name] = orderItems[element.name]
+    counterItems[element.counter] = (counterItems[element.counter] || 0) + 1;
+});
+
+// console.log("pizza",counterItems["Pizza"]);
+
+// console.log(counterItems)
+// counterItems.forEach(element => {
+//     console.log(counterItems)
+//     console.log(element)
+// })
+
+// for (let i = 0; i < orderItems.length; i++) {
+//     // console.log(counterItems)
+//     // if(counterItems[i].name === "Pizza"){
+//     //     console.log("It works")
+//     // }
+// }
+//     const foodArray = [{
+//         name: "Pizza",
+//         ingredients: ["pepperoni", " mushroom", " mozarella"],
+//         price: 14,
+//         id: 0
+//     },
+//     {
+//         name: "Hamburger",
+//         ingredients: ["beef", " cheese", " lettuce"],
+//         price: 12,
+//         id: 1
+//     },
+//     {
+//         name: "Hamburger",
+//         ingredients: ["beef", " cheese", " lettuce"],
+//         price: 12,
+//         id: 1
+//     },
+//     {
+//         name: "Hotdog",
+//         ingredients: ["sausage", " bun"],
+//         price: 8,
+//         id: 3
+//     },
+//     {
+//         name: "Hotdog",
+//         ingredients: ["sausage", " bun"],
+//         price: 8,
+//         id: 3
+//     }
+// ];
+
+// let values = []
+// for(let i = 0; i < foodArray.length; i++){
+//     for (const key in foodArray[i]) {
+//         values.push([foodArray[i][key]])
+//         break;
+//     }
+// }
+
+// console.log(values);
