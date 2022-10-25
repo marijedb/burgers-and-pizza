@@ -18,7 +18,13 @@ document.addEventListener("click", function (event) {
     } else if (event.target.dataset.remove) {
         removeItem(event.target.dataset.remove)
     } else if (event.target.dataset.complete) {
-        console.log("COMPLETED")
+        completeOrder()
+    }
+    else if (event.target.dataset.pay){
+        if(document.querySelector('form').checkValidity()){
+            payOrder();
+            event.preventDefault();
+        }
     }
 })
 
@@ -67,6 +73,18 @@ function calculateTotalPrice() {
     }
 }
 
+function completeOrder() {
+    document.getElementById("pay-modal-container").classList.remove("hidden");
+}
+
+function payOrder() {
+    let name = document.getElementById("name").value;
+    document.getElementById("pay-modal-container").classList.add("hidden");
+    document.getElementById("order-container").innerHTML = `
+        <div class="completed-container">
+            <p class="thank-you-msg">Thanks, ${name}! Your order is on its way!</p>
+        </div>`
+}
 
 function renderOrderItems() {
     console.log()
@@ -99,6 +117,7 @@ function renderOrderItems() {
     }
     calculateTotalPrice()
 }
+
 
 function getHtml() {
     let mainDish = ``;
@@ -175,7 +194,7 @@ function getHtml() {
         ${beverage}
     </div>
 
-    <div class="order-container">
+    <div id="order-container" class="order-container">
         <h1 class="order-title">Your Order</h1>
                 <ul id="ul-items-basket">
                     <li class="basket-items-list-container">
@@ -188,8 +207,19 @@ function getHtml() {
             <p class="order-price-total">Total price:</p>
             <p id="order-total-amount" class="order-total-amount"></p>
         </div>
-        <button class="order-button" data-complete="complete">Complete order</button>
-    </div>`;
+        <button class="btn" data-complete="complete">Complete order</button>
+    </div>
+        <div id="pay-modal-container" class="pay-modal-container hidden">
+            <div class="pay-modal-inner">
+                <h1 class="card-details-title">Enter card details</h1>
+                <form action="#">
+                    <input id="name" class="input-field" type="text" placeholder="Enter your name" required> 
+                    <input class="input-field" type="text" placeholder="Enter card number" required> 
+                    <input class="input-field" type="text" placeholder="Enter CVV" required> 
+                    <input id="pay-button" class="btn" type="submit" value="pay" id="place-order" data-pay="pay" />
+                </form>
+            </div>
+        </div>`;
 
     return pageHtml;
 }
