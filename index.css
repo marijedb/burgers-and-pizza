@@ -263,6 +263,7 @@ form {
     .completed-container {
         margin-top: 50px;
         width: 500px;
+        padding: 10px;
     }
 }
 
