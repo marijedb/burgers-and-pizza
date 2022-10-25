@@ -89,7 +89,7 @@ export const menuArray = [{
         counter: 0
     },
     {
-        name: "Chocolate cupcake",
+        name: "Cupcake",
         ingredients: ["Eggs", " flour", " butter", " sugar", " buttercream"],
         price: 4,
         emoji: "🧁",
