@@ -91,7 +91,7 @@ function payOrder() {
     document.getElementById("order-container").innerHTML = `
         <div class="completed-container">
             <p class="thank-you-msg">Thanks, ${name}! Your order is on its way!</p>
-            <button class="btn" data-neworder="newOrder">Place new order</button>
+            <button class="btn-new" data-neworder="newOrder">Place new order</button>
         </div>`
 }
 

@@ -150,6 +150,8 @@ p {
 }
 
 .completed-container {
+    display: flex;
+    flex-direction: column;
     width: 90%;
     background-color: #ECFDF5;
     margin: 0 auto 50px;
@@ -215,6 +217,21 @@ form {
     outline-color: #757575;
 }
 
+.btn-new {
+    color: #fff;
+    background-color: #16DB99;
+    border: none;
+    border-radius: 4px;;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 20px 60px;
+    margin: auto;
+    margin-bottom: 30px;
+    margin-top: 10px;
+}
+
+
  
 
 /* Utility class */
@@ -262,8 +279,13 @@ form {
 
     .completed-container {
         margin-top: 50px;
-        width: 500px;
+        width: 400px;
         padding: 10px;
+    }
+
+    .completed-container .btn {
+        width: 60%;
+        margin: auto;
     }
 }
 
