@@ -2,14 +2,12 @@ import {
     menuArray
 } from "./data.js";
 
-
-// render our page using the data.js file and replace the hardcoded data.
 // Add eventListeners for all buttons, using event.target
 // Add menu discounts
 // When complete order, create a popup. (Still need to make and style it)
 let pageHtml = ``;
 let orderItems = [];
-let flattenedNames= []
+let singledOutArray = []
 
 document.getElementById("main-page").onload = render();
 document.getElementById("main-page").onload = renderOrderItems();
@@ -27,68 +25,43 @@ document.addEventListener("click", function (event) {
 function addOrderItems(itemID) {
     for (let i = 0; i < menuArray.length; i++) {
         if (menuArray[i].id === Number(itemID)) {
+            menuArray[i].counter += 1
             orderItems.push(menuArray[i])
         }
     }
-    sortByName()
-    createCountArray()
-    renderOrderItems();
-}
 
-
-function sortByName() {
-    const names = []
 
     for (let item of orderItems) {
-        names.push([item.name])
-    }
-    flattenedNames = names.reduce((acc, curVal) => {
-        return acc.concat(curVal)
-    }, []);
-    flattenedNames.sort()
- 
-};
 
-function createCountArray() {
-    let duplicates = []
-    let current = null;
-    let cnt = 0;
-    for (let j = 0; j < flattenedNames.length; j++) {
-        if (flattenedNames[j] != current) {
-            if (cnt > 0) {
-                duplicates.push([current, cnt])
-            }
-            current = flattenedNames[j];
-            cnt = 1;
-        } else {
-            console.log("else")
-            cnt++;
+        if (!(singledOutArray.includes(item))) {
+            singledOutArray.push(item)
         }
+
     }
-    if (cnt > 0) {
-        duplicates.push([current, cnt])
-    }
-    console.log(duplicates)
-    console.log(duplicates[0][1])
+    orderItems = []
+    renderOrderItems();
 }
 
+
 function removeItem(itemId) {
-    for (let i = 0; i < orderItems.length; i++) {
-        if (orderItems[i].id === Number(itemId)) {
-            orderItems.splice(i, 1);
+    for (let i = 0; i < singledOutArray.length; i++) {
+        if (singledOutArray[i].id === Number(itemId)) {
+            singledOutArray[i].counter = 0;
+            singledOutArray.splice(i, 1);
         }
     }
+    console.log("orderItems: ", orderItems)
+    console.log("SingledOutArray: ", singledOutArray)
     renderOrderItems();
-    // STILL PROBLEM COS OF DUPLICATES
 }
 
 function calculateTotalPrice() {
     let totalPrice = 0;
-    if (orderItems.length === 0) {
+    if (singledOutArray.length === 0) {
         document.getElementById("order-total-amount").textContent = `$0`
     } else {
-        for (let i = 0; i < orderItems.length; i++) {
-            totalPrice += orderItems[i].price;
+        for (let i = 0; i < singledOutArray.length; i++) {
+            totalPrice += (singledOutArray[i].price * singledOutArray[i].counter);
         }
         document.getElementById("order-total-amount").textContent = `$${totalPrice}`
     }
@@ -96,21 +69,32 @@ function calculateTotalPrice() {
 
 
 function renderOrderItems() {
+    console.log()
     let ul = document.getElementById("ul-items-basket");
-    if (orderItems.length < 1) {
+    if (singledOutArray.length < 1) {
         document.getElementById("basket-item").textContent = `Select a menu item`;
         document.getElementById("remove-btn").textContent = ``;
         document.getElementById("basket-item-price").textContent = `$0`
     } else {
         ul.textContent = ""
-        for (let i = 0; i < orderItems.length; i++) {
-            let list = document.createElement("li");
-            list.setAttribute("class", "basket-items-list-container")
-            list.innerHTML = `
-            <p id="basket-item" class="basket-item">${orderItems[i].name}</p>
-            <p id="remove-btn" class="remove-btn" data-remove="${orderItems[i].id}">remove</p>
-            <p id="basket-item-price" class="basket-item-price">$${orderItems[i].price}</p>`
-            ul.appendChild(list)
+        for (let i = 0; i < singledOutArray.length; i++) {
+            if (singledOutArray[i].counter === 1) {
+                let list = document.createElement("li");
+                list.setAttribute("class", "basket-items-list-container")
+                list.innerHTML = `
+                    <p id="basket-item" class="basket-item">${singledOutArray[i].name}</p>
+                    <p id="remove-btn" class="remove-btn" data-remove="${singledOutArray[i].id}">remove</p>
+                    <p id="basket-item-price" class="basket-item-price">$${singledOutArray[i].price}</p>`
+                ul.appendChild(list)
+            } else {
+                let list = document.createElement("li");
+                list.setAttribute("class", "basket-items-list-container")
+                list.innerHTML = `
+                    <p id="basket-item" class="basket-item">${singledOutArray[i].counter}x ${singledOutArray[i].name}</p>
+                    <p id="remove-btn" class="remove-btn" data-remove="${singledOutArray[i].id}">remove</p>
+                    <p id="basket-item-price" class="basket-item-price">$${singledOutArray[i].price * singledOutArray[i].counter}</p>`
+                ul.appendChild(list)
+            }
         }
     }
     calculateTotalPrice()

@@ -13,7 +13,8 @@ export const menuArray = [{
         price: 12,
         emoji: "🍔",
         categorie: "main dish",
-        id: 1
+        id: 1,
+        counter: 0
     },
     {
         name: "Fries",
@@ -21,7 +22,8 @@ export const menuArray = [{
         price: 6,
         emoji: "🍟",
         categorie: "main dish",
-        id: 2
+        id: 2,
+        counter: 0
     },
     {
         name: "Hotdog",
@@ -29,7 +31,8 @@ export const menuArray = [{
         price: 8,
         emoji: "🌭",
         categorie: "main dish",
-        id: 3
+        id: 3,
+        counter: 0
     },
     {
         name: "Chicken Wings",
@@ -37,7 +40,8 @@ export const menuArray = [{
         price: 10,
         emoji: "🍗",
         categorie: "main dish",
-        id: 4
+        id: 4,
+        counter: 0
     },
     {
         name: "Burrito",
@@ -45,7 +49,8 @@ export const menuArray = [{
         price: 8,
         emoji: "🌯",
         categorie: "main dish",
-        id: 5
+        id: 5,
+        counter: 0
     },
     {
         name: "Deep fried Shrimps",
@@ -53,7 +58,8 @@ export const menuArray = [{
         price: 8,
         emoji: "🍤",
         categorie: "side dish",
-        id: 6
+        id: 6,
+        counter: 0
     },
     {
         name: "Corn on the cob",
@@ -61,7 +67,8 @@ export const menuArray = [{
         price: 4,
         emoji: "🌽",
         categorie: "side dish",
-        id: 7
+        id: 7,
+        counter: 0
     },
     {
         name: "Salade",
@@ -69,7 +76,8 @@ export const menuArray = [{
         price: 4,
         emoji: "🥗",
         categorie: "side dish",
-        id: 8
+        id: 8,
+        counter: 0
     },
     {
         name: "Home made Apple pie",
@@ -77,7 +85,8 @@ export const menuArray = [{
         price: 4,
         emoji: "🥧",
         categorie: "dessert",
-        id: 9
+        id: 9,
+        counter: 0
     },
     {
         name: "Chocolate cupcake",
@@ -85,7 +94,8 @@ export const menuArray = [{
         price: 4,
         emoji: "🧁",
         categorie: "dessert",
-        id: 10
+        id: 10,
+        counter: 0
     },
     {
         name: "Chocolate chip cookie",
@@ -93,7 +103,8 @@ export const menuArray = [{
         price: 2,
         emoji: "🍪",
         categorie: "dessert",
-        id: 11
+        id: 11,
+        counter: 0
     },
     {
         name: "Chocolate Donut",
@@ -101,7 +112,8 @@ export const menuArray = [{
         price: 2,
         emoji: "🍩",
         categorie: "dessert",
-        id: 12
+        id: 12,
+        counter: 0
     },
     {
         name: "Beer",
@@ -109,7 +121,8 @@ export const menuArray = [{
         price: 9,
         emoji: "🍺",
         categorie: "beverage",
-        id: 13
+        id: 13,
+        counter: 0
     },
     {
         name: "Wine",
@@ -117,7 +130,8 @@ export const menuArray = [{
         price: 9,
         emoji: "🍷",
         categorie: "beverage",
-        id: 14
+        id: 14,
+        counter: 0
     },
     {
         name: "Strawberry Milkshake",
@@ -125,6 +139,7 @@ export const menuArray = [{
         price: 3,
         emoji: "🥤",
         categorie: "beverage",
-        id: 15
+        id: 15,
+        counter: 0
     },
 ]
