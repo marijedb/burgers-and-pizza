@@ -2,16 +2,16 @@ import {
     menuArray
 } from "./data.js";
 
-// Add eventListeners for all buttons, using event.target
 // Add menu discounts
-// When complete order, create a popup. (Still need to make and style it)
 let pageHtml = ``;
 let orderItems = [];
 let singledOutArray = []
 
+// This will render the page on load of page. 
 document.getElementById("main-page").onload = render();
 document.getElementById("main-page").onload = renderOrderItems();
 
+// This will add event listeners to all buttons on the page. 
 document.addEventListener("click", function (event) {
     if (event.target.dataset.add) {
         addOrderItems(event.target.dataset.add);
@@ -24,6 +24,9 @@ document.addEventListener("click", function (event) {
             completeOrder()
         }
     }
+    // IF pay button is clicked it will first check for it's validity. If not all
+    // required fields have been filled out nothing happens. If all is filled out
+    // It will prevent default of reloading the page, but instead just re-renders the "Your Order" section
     else if (event.target.dataset.pay){
         if(document.querySelector('form').checkValidity()){
             payOrder();
@@ -32,7 +35,10 @@ document.addEventListener("click", function (event) {
     }
 })
 
+// This will be executed when clicked on + button on menu. 
 function addOrderItems(itemID) {
+    // This will loop through data.js and check which menu item is clicked and that one gets pushed
+    // into orderItems array. Also the counter of amount of times clicked on same item is incremented
     for (let i = 0; i < menuArray.length; i++) {
         if (menuArray[i].id === Number(itemID)) {
             menuArray[i].counter += 1
@@ -40,67 +46,79 @@ function addOrderItems(itemID) {
         }
     }
 
-
+    // This will check if the singledOutArray already has the current looped item
+    // of the orderItems. If it doesnt then it gets pushed inside the singledOutArray. 
+    // This will result in unique order items only. 
     for (let item of orderItems) {
-
         if (!(singledOutArray.includes(item))) {
             singledOutArray.push(item)
         }
-
     }
+    // This will reset the orderItems array to keep it nice and empty. 
     orderItems = []
+
+    // This will use the singledOutArray to render the "Your Order" section. 
     renderOrderItems();
 }
 
-
+// This will be exectuted if the remove button next to orderItem is clicked. 
 function removeItem(itemId) {
+    // this loop will loop over singledOutArray and check to which item the clicked
+    // remove button belongs to. If found, the counter is reset to 0 and the item is
+    // removed from the singledOutArray. 
     for (let i = 0; i < singledOutArray.length; i++) {
         if (singledOutArray[i].id === Number(itemId)) {
             singledOutArray[i].counter = 0;
             singledOutArray.splice(i, 1);
         }
     }
-    console.log("orderItems: ", orderItems)
-    console.log("SingledOutArray: ", singledOutArray)
+    // This will rerender the "Your Order" section
     renderOrderItems();
 }
 
-function calculateTotalPrice() {
-    let totalPrice = 0;
-    if (singledOutArray.length === 0) {
-        document.getElementById("order-total-amount").textContent = `$0`
-    } else {
-        for (let i = 0; i < singledOutArray.length; i++) {
-            totalPrice += (singledOutArray[i].price * singledOutArray[i].counter);
-        }
-        document.getElementById("order-total-amount").textContent = `$${totalPrice}`
-    }
-}
-
-function completeOrder() {
-    document.getElementById("pay-modal-container").classList.remove("hidden");
-}
-
+// This function will be executed if the "Pay" button has been clicked. 
 function payOrder() {
+    // This will grab the filled in name from the input field. 
     let name = document.getElementById("name").value;
+
+    // This will grab the modal and hides it again, making it close. 
     document.getElementById("pay-modal-container").classList.add("hidden");
+
+    // This will grab the order-container ("Your Order" section) and sets its innerHTML
+    // to a thank you message. 
     document.getElementById("order-container").innerHTML = `
         <div class="completed-container">
             <p class="thank-you-msg">Thanks, ${name}! Your order is on its way!</p>
         </div>`
 }
 
+// This function will be executed if the "Complete Order" button is clicked. 
+function completeOrder() {
+    // It removes the hidden class from the modal, making it appear onto the page. 
+    document.getElementById("pay-modal-container").classList.remove("hidden");
+}
+
 function renderOrderItems() {
-    console.log()
+    // This will grab the ul from the "Your Order" section. 
     let ul = document.getElementById("ul-items-basket");
+
+    // This will check if singledOutArray contains items. 
+    // if not it will set the current li item to it's default value. 
     if (singledOutArray.length < 1) {
         document.getElementById("basket-item").textContent = `Select a menu item`;
         document.getElementById("remove-btn").textContent = ``;
         document.getElementById("basket-item-price").textContent = `$0`
     } else {
+        // if singledOutArray does contain values it will reset the UL to an empty string
+        // giving room for new items to be rendered to the page. 
         ul.textContent = ""
+
+        // This will loop over the singledOutArray and check inside if the counter of looped
+        // item is 1 or higher than 1. 
         for (let i = 0; i < singledOutArray.length; i++) {
             if (singledOutArray[i].counter === 1) {
+                // If counter is one it will create list item and sets its innerHTML to 
+                // the value belonging to the looped item. 
                 let list = document.createElement("li");
                 list.setAttribute("class", "basket-items-list-container")
                 list.innerHTML = `
@@ -109,6 +127,8 @@ function renderOrderItems() {
                     <p id="basket-item-price" class="basket-item-price">$${singledOutArray[i].price}</p>`
                 ul.appendChild(list)
             } else {
+                // If counter is more than one it will create a list item but changes the amount of items to for
+                // example 2x Pizza. It also calculates the total price to the price x counter. 
                 let list = document.createElement("li");
                 list.setAttribute("class", "basket-items-list-container")
                 list.innerHTML = `
@@ -119,18 +139,41 @@ function renderOrderItems() {
             }
         }
     }
+
+    // This will make sure total price is updated in the "Your Order" section. 
     calculateTotalPrice()
 }
 
+// This function will be executed from within the renderOrderItems function. 
+function calculateTotalPrice() {
+    // First totalPrice will be set to 0 before calculations begin. 
+    let totalPrice = 0;
+    // If there are no items inside singledOutArray it will render $0 to the total price area. 
+    if (singledOutArray.length === 0) {
+        document.getElementById("order-total-amount").textContent = `$0`
+    } else {
+        // If there are items inside singledOutArray it will loop through the array and adds the price of
+        // each element in the array to the totalPrice. 
+        for (let i = 0; i < singledOutArray.length; i++) {
+            totalPrice += (singledOutArray[i].price * singledOutArray[i].counter);
+        }
+        // This will render the calculated total price to the page. 
+        document.getElementById("order-total-amount").textContent = `$${totalPrice}`
+    }
+}
 
+// This function will render the page as soon as the page loads for first time. 
 function getHtml() {
+    // first all sections will be set to an empty string. 
     let mainDish = ``;
     let sideDish = ``;
     let beverage = ``;
     let dessert = ``;
 
-
+    // Thhis will loop over the menuArray and uses the information for rendering. 
     menuArray.forEach(function (menuItem) {
+        // Inside this if else statement it checks if the categorie of the items of the menuArray
+        // items its looping over has what categorie and then pushes the html string to the right section string. 
         if (menuItem.categorie === "main dish") {
             mainDish += `
             <div class="menu-item">
@@ -186,6 +229,8 @@ function getHtml() {
         }
     })
 
+
+    // This will actually puts everything together into a single page. 
     pageHtml += `
     <div class="content-container">
         <h3 class="menu-item-title">Main dishes</h3>
@@ -225,9 +270,11 @@ function getHtml() {
             </div>
         </div>`;
 
+    // This will return the full html page that needs to be rendered. 
     return pageHtml;
 }
 
+// This function will execute on page load, rendering the page. 
 function render() {
     document.getElementById("main-page").innerHTML = getHtml();
 }
