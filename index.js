@@ -18,7 +18,11 @@ document.addEventListener("click", function (event) {
     } else if (event.target.dataset.remove) {
         removeItem(event.target.dataset.remove)
     } else if (event.target.dataset.complete) {
-        completeOrder()
+        if(singledOutArray.length === 0) {
+            alert("You haven't placed anything in your basket yet. Please select an item from the menu. ")
+        } else {
+            completeOrder()
+        }
     }
     else if (event.target.dataset.pay){
         if(document.querySelector('form').checkValidity()){
